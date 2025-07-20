@@ -1,0 +1,221 @@
+/* User Management Table Responsive Styles */
+
+.user-table-container {
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    overflow: visible; /* Changed from hidden to visible */
+    padding: 0.5rem;
+}
+
+.order-table {
+    min-width: auto;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Changed from fixed to auto */
+}
+
+/* Add spacing between columns */
+.order-table th, .order-table td {
+    padding: 0.5rem 0.7rem;
+}
+
+/* Remove fixed column widths from here as they're now in the inline styles */
+
+/* Handle text overflow for long content */
+.order-table td {
+    white-space: normal; /* Changed from nowrap to normal */
+    overflow: visible; /* Changed from hidden to visible */
+    text-overflow: clip; /* Changed from ellipsis to clip */
+}
+
+/* Add specific styling for User ID column to handle long IDs */
+.order-table td:nth-child(2) {
+    font-size: 0.85rem;
+    letter-spacing: -0.02em;
+    padding-right: 1rem;
+    word-break: break-word; /* Added to handle long IDs */
+}
+
+/* Add bottom margin to the table to prevent screen flickering */
+.order-table {
+    margin-bottom: 50px;
+}
+
+/* User profile image styling */
+.user-profile {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    display: block;
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 1200px) {
+    .user-table-container {
+        overflow: visible;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+    
+    .order-table {
+        display: block;
+        margin-bottom: 80px; /* Extra space at bottom to prevent flickering */
+    }
+    
+    .order-table thead {
+        display: none;
+    }
+    
+    .order-table tbody {
+        display: block;
+    }
+    
+    .order-table tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        background-color: #fff;
+    }
+    
+    .order-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid #f0f0f0;
+        white-space: normal; /* Override the nowrap for responsive view */
+    }
+    
+    .order-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .order-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #393e6e;
+        text-align: left;
+        min-width: 100px;
+    }
+    
+    /* Special handling for profile image cell */
+    .order-table td:first-child {
+        justify-content: center;
+        padding-bottom: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .order-table td:first-child::before {
+        display: none;
+    }
+    
+    /* User ID cell in responsive view */
+    .order-table td:nth-child(2) {
+        word-break: break-all;
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+    
+    /* Email cell in responsive view */
+    .order-table td:nth-child(5) {
+        word-break: break-all;
+        white-space: normal;
+    }
+    
+    /* Action buttons in responsive view */
+    .order-table td:last-child {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+    
+    .view-btn, .delete-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* Additional responsive adjustments for very small screens */
+@media screen and (max-width: 480px) {
+    .order-table td {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 0.7rem 0;
+    }
+    
+    .order-table td::before {
+        margin-bottom: 0.3rem;
+    }
+    
+    /* Action buttons container */
+    .order-table td:last-child {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* User Detail Modal Styles */
+.user-detail-profile {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.user-detail-item {
+    display: flex;
+    margin-bottom: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #393e6e;
+    min-width: 100px;
+    margin-right: 0.5rem;
+}
+
+.detail-value {
+    flex: 1;
+}
+
+/* Responsive modal styles */
+@media screen and (max-width: 600px) {
+    .user-detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+    
+    .detail-label {
+        margin-bottom: 0.3rem;
+    }
+    
+    .modal-content {
+        width: 90%;
+        max-width: 450px;
+        padding: 1rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+}

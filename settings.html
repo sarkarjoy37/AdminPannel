@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="settings.html" class="active">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="settings-header" style="background:linear-gradient(90deg,#393e6e 0%,#6D28D9 100%);border-radius:12px;padding:1.5rem 2rem 1.2rem 2rem;color:#fff;box-shadow:0 2px 12px rgba(44,62,80,0.08);margin-bottom:2rem;">
+                <h1 style="color:#fefefe;margin-bottom:0.5rem;font-size:2rem;letter-spacing:0.01em;font-weight:700;">Settings</h1>
+                <p style="color:#ffffff;font-size:1.04rem;font-weight:500;">Configure your store settings and preferences.</p>
+            </div>
+            
+            <div style="max-width:1000px;margin:0 auto;">
+                <div class="settings-tabs" style="display:flex;border-bottom:1px solid #e5e7eb;margin-bottom:1.5rem;">
+                    <button class="tab-btn active" data-tab="general" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;border-bottom:2px solid #393e6e;">General</button>
+                    <button class="tab-btn" data-tab="store" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;">Store</button>
+                    <button class="tab-btn" data-tab="payment" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;">Payment</button>
+                    <button class="tab-btn" data-tab="shipping" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;">Shipping</button>
+                    <button class="tab-btn" data-tab="notifications" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;">Notifications</button>
+                    <button class="tab-btn" data-tab="users" style="padding:0.8rem 1.2rem;border:none;background:none;font-size:1rem;font-weight:500;color:#4b5563;cursor:pointer;">Users</button>
+                </div>
+                
+                <div id="generalSettings" class="settings-content active">
+                    <div class="settings-section" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:1.5rem;">
+                        <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Store Information</h3>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="storeName" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Store Name</label>
+                            <input type="text" id="storeName" value="PriyoRong E-commerce" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;" />
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="storeEmail" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Contact Email</label>
+                            <input type="email" id="storeEmail" value="contact@priyorong.com" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;" />
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="storePhone" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Contact Phone</label>
+                            <input type="tel" id="storePhone" value="+880 19924 87980" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;" />
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="storeAddress" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Store Address</label>
+                            <textarea id="storeAddress" rows="3" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;">0793, West TalpukurPar, Adarsha Sadar, Cumilla 3500</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:1.5rem;">
+                        <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Regional Settings</h3>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="currency" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Currency</label>
+                            <select id="currency" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;">
+                                <option value="BDT" selected>Bangladeshi Taka (৳)</option>
+                                <option value="USD">US Dollar ($)</option>
+                                <option value="EUR">Euro (€)</option>
+                                <option value="GBP">British Pound (£)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="timezone" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Timezone</label>
+                            <select id="timezone" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;">
+                                <option value="Asia/Dhaka" selected>Asia/Dhaka (GMT+6)</option>
+                                <option value="UTC">UTC</option>
+                                <option value="America/New_York">America/New_York (GMT-4)</option>
+                                <option value="Europe/London">Europe/London (GMT+1)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="dateFormat" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Date Format</label>
+                            <select id="dateFormat" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;">
+                                <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions" style="display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;">
+                        <button id="resetSettings" class="btn-secondary" style="padding:8px 16px;background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-weight:500;">Reset to Default</button>
+                        <button id="saveSettings" class="btn-primary" style="padding:8px 16px;background:linear-gradient(135deg,#393e6e 0%,#4c51bf 100%);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:500;">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div id="storeSettings" class="settings-content" style="display:none;">
+                    <div class="settings-section" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:1.5rem;">
+                        <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Store Appearance</h3>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="storeLogo" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Store Logo</label>
+                            <div style="display:flex;align-items:center;gap:1rem;">
+                                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Store Logo" style="width:80px;height:80px;object-fit:contain;border:1px solid #e5e7eb;border-radius:4px;" />
+                                <button class="btn-secondary" style="padding:8px 16px;background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-weight:500;">Change Logo</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="primaryColor" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Primary Color</label>
+                            <input type="color" id="primaryColor" value="#393e6e" style="width:100%;padding:0;border:1px solid #e5e7eb;border-radius:4px;height:40px;" />
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="accentColor" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Accent Color</label>
+                            <input type="color" id="accentColor" value="#ffb347" style="width:100%;padding:0;border:1px solid #e5e7eb;border-radius:4px;height:40px;" />
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:1.5rem;">
+                        <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">SEO Settings</h3>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="metaTitle" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Meta Title</label>
+                            <input type="text" id="metaTitle" value="PriyoRong - Premium Fashion E-commerce Store" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;" />
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="metaDescription" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Meta Description</label>
+                            <textarea id="metaDescription" rows="3" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;">Shop the latest fashion trends at PriyoRong. We offer premium clothing, footwear, and accessories with fast delivery across Bangladesh.</textarea>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label for="metaKeywords" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Meta Keywords</label>
+                            <input type="text" id="metaKeywords" value="fashion, clothing, shoes, accessories, bangladesh, online shopping" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions" style="display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;">
+                        <button id="resetStoreSettings" class="btn-secondary" style="padding:8px 16px;background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-weight:500;">Reset to Default</button>
+                        <button id="saveStoreSettings" class="btn-primary" style="padding:8px 16px;background:linear-gradient(135deg,#393e6e 0%,#4c51bf 100%);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:500;">Save Changes</button>
+                    </div>
+                </div>
+                
+                <!-- Other settings tabs content would go here -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script src="js/settings/settings.js"></script>
+</body>
+</html>

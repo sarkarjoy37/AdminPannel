@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+    <style>
+        .search-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 200px;
+        }
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+        }
+        
+        /* Updated styles for wider table */
+        .user-table-container {
+            max-width: 100%;
+            width: 100%;
+            overflow-x: visible;
+        }
+        
+        /* Adjust the container width */
+        .main-content > div {
+            max-width: 100% !important;
+            padding: 0 1rem;
+        }
+        
+        /* Adjust column widths for better display */
+        .order-table th:nth-child(1) { width: 60px; } /* Profile */
+        .order-table th:nth-child(2) { width: 20%; } /* User ID */
+        .order-table th:nth-child(3) { width: 15%; } /* Username */
+        .order-table th:nth-child(4) { width: 15%; } /* Name */
+        .order-table th:nth-child(5) { width: 20%; } /* Email */
+        .order-table th:nth-child(6) { width: 10%; } /* Status */
+        .order-table th:nth-child(7) { width: 10%; } /* Actions */
+        
+        /* Improve text display in cells */
+        .order-table td {
+            white-space: normal;
+            word-break: break-word;
+            font-size: 0.9rem;
+        }
+        
+        /* Ensure action buttons are visible */
+        .order-table td:last-child {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html" class="active">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="#" data-page="reports">Reports</a></li>
+                <li><a href="#" data-page="settings">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="user-header" style="background:linear-gradient(90deg,#393e6e 0%,#ffb347 100%);border-radius:12px;padding:1.5rem 2rem 1.2rem 2rem;color:#fff;box-shadow:0 2px 12px rgba(44,62,80,0.08);margin-bottom:2rem;">
+                <h1 style="color:#fefefe;margin-bottom:0.5rem;font-size:2rem;letter-spacing:0.01em;font-weight:700;">User Management</h1>
+                <p style="color:#ffffff;font-size:1.04rem;font-weight:500;">Manage and monitor registered users in real time.</p>
+            </div>
+            <div style="max-width:1000px;margin:0 auto;">
+                <div class="table-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:1rem;">
+                    <h3 style="font-size:1.3rem;color:#393e6e;font-weight:700;letter-spacing:0.01em;margin-bottom:0.2em;">All Users</h3>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="searchUserID" class="search-input" placeholder="Search by User ID..." />
+                    <input type="text" id="searchUsername" class="search-input" placeholder="Search by Username..." />
+                </div>
+                
+                <hr class="section-divider" style="border:0;border-top:1.5px solid #e5e7eb;margin:2.5rem 0 2rem 0;" />
+                <div class="user-table-container">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>Profile</th>
+                                <th>User ID</th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <tr><td colspan="7" class="loading">Loading users...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- User Details Modal -->
+    <div id="userModal" class="modal" style="display:none;">
+        <div class="modal-content" id="userModalContent">
+            <!-- User details will be injected here -->
+        </div>
+    </div>
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyASIyl9QqMu26tgr_BK6vUrV7uGtmrMc5E",
+        authDomain: "ecommerceapp-c9ea3.firebaseapp.com",
+        projectId: "ecommerceapp-c9ea3",
+        storageBucket: "ecommerceapp-c9ea3.firebasestorage.app",
+        messagingSenderId: "390658496608",
+        appId: "1:390658496608:web:6fe75f0d30de75f32f0b05",
+        measurementId: "G-MMBCSZ3Q4K"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="js/auth/firebase-auth.js"></script>
+    <script src="js/user/users.js"></script>
+</body>
+</html>

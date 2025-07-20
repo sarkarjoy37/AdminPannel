@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <style>
+        /* Enhanced Dashboard Styles */
+        .dashboard-header {
+            background: linear-gradient(90deg, #393e6e 0%, #ffb347 100%);
+            border-radius: 12px;
+            padding: 1.5rem 2rem 1.2rem 2rem;
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-header h1 {
+            color: #fefefe;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            letter-spacing: 0.01em;
+            font-weight: 700;
+        }
+        
+        .dashboard-subtitle {
+            color: #ffffff;
+            font-size: 1.04rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+        
+        .order-status-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
+        
+        .order-status-table tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .order-status-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .order-status-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-count {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Container -->
+    <div id="authContainer" class="auth-container">
+        <!-- Login form will be inserted here by JavaScript -->
+    </div>
+
+    <!-- Admin Content (hidden until authenticated) -->
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p class="dashboard-subtitle">Welcome back! Here's an overview of your e-commerce store.</p>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-content">
+                        <h3>Total Orders</h3>
+                        <p class="stat-number" id="totalOrders">0</p>
+                        <p class="stat-change positive">+12% from last month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3>Turn Over</h3>
+                        <p class="stat-number" id="totalRevenue">৳0</p>
+                        <p class="stat-change positive" id="revenueChange">+8% from last month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>Customers</h3>
+                        <p class="stat-number" id="totalCustomers">0</p>
+                        <p class="stat-change positive">+5% from last month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3>Products</h3>
+                        <p class="stat-number" id="totalProducts">0</p>
+                        <p class="stat-change neutral">+26% from last month</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-sections">
+                <div class="section-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions">
+                        <a href="categories.html" class="action-btn">
+                            <span class="action-icon">📂</span>
+                            Manage Categories
+                        </a>
+                        <a href="products.html" class="action-btn">
+                            <span class="action-icon">📦</span>
+                            Add Product
+                        </a>
+                        <a href="orders.html" class="action-btn">
+                            <span class="action-icon">📋</span>
+                            View Orders
+                        </a>
+                        <a href="users.html" class="action-btn">
+                            <span class="action-icon">👥</span>
+                            Manage Users
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <h3>Order Status</h3>
+                    <table class="order-status-table" id="orderStatusTable">
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #FFA500;"></span>Pending</td>
+                            <td class="status-count" id="pendingCount">0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #2196F3;"></span>Processing</td>
+                            <td class="status-count" id="processingCount">0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #9C27B0;"></span>Shipped</td>
+                            <td class="status-count" id="shippedCount">0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #4CAF50;"></span>Delivered</td>
+                            <td class="status-count" id="deliveredCount">0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #F44336;"></span>Cancelled</td>
+                            <td class="status-count" id="cancelledCount">0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot" style="background-color: #009688;"></span>Refunded</td>
+                            <td class="status-count" id="refundedCount">0</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="section-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="recentActivity">
+                        <div class="activity-item">
+                            <div class="activity-icon">📦</div>
+                            <div class="activity-content">
+                                <p>New order received</p>
+                                <small>2 minutes ago</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">⭐</div>
+                            <div class="activity-content">
+                                <p>New product review</p>
+                                <small>15 minutes ago</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">👤</div>
+                            <div class="activity-content">
+                                <p>New user registered</p>
+                                <small>1 hour ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyASIyl9QqMu26tgr_BK6vUrV7uGtmrMc5E",
+        authDomain: "ecommerceapp-c9ea3.firebaseapp.com",
+        projectId: "ecommerceapp-c9ea3",
+        storageBucket: "ecommerceapp-c9ea3.firebasestorage.app",
+        messagingSenderId: "390658496608",
+        appId: "1:390658496608:web:6fe75f0d30de75f32f0b05",
+        measurementId: "G-MMBCSZ3Q4K"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script src="js/auth/firebase-auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reports.css">
+</head>
+<body>
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="reports.html" class="active">Reports</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="report-header" style="background:linear-gradient(90deg,#393e6e 0%,#4CAF50 100%);border-radius:12px;padding:1.5rem 2rem 1.2rem 2rem;color:#fff;box-shadow:0 2px 12px rgba(44,62,80,0.08);margin-bottom:2rem;">
+                <h1 style="color:#fefefe;margin-bottom:0.5rem;font-size:2rem;letter-spacing:0.01em;font-weight:700;">Reports</h1>
+                <p style="color:#ffffff;font-size:1.04rem;font-weight:500;">Analyze sales, revenue, and inventory data to make informed decisions.</p>
+            </div>
+            
+            <div style="max-width:1000px;margin:0 auto;">
+                <div class="table-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:1rem;">
+                    <h3 style="font-size:1.3rem;color:#393e6e;font-weight:700;letter-spacing:0.01em;margin-bottom:0.2em;">Report Dashboard</h3>
+                </div>
+                
+                <div class="report-filters" style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+                    <div class="date-filter">
+                        <label for="dateRange" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Date Range</label>
+                        <select id="dateRange" class="filter-select" style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;min-width:200px;">
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="last7days" selected>Last 7 Days</option>
+                            <option value="last30days">Last 30 Days</option>
+                            <option value="thisMonth">This Month</option>
+                            <option value="lastMonth">Last Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="report-type">
+                        <label for="reportType" style="display:block;margin-bottom:0.3rem;font-size:0.9rem;color:#4b5563;">Report Type</label>
+                        <select id="reportType" class="filter-select" style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;font-size:14px;min-width:200px;">
+                            <option value="sales" selected>Sales Summary</option>
+                            <option value="revenue">Revenue Analysis</option>
+                            <option value="products">Product Performance</option>
+                            <option value="categories">Category Analysis</option>
+                            <option value="customers">Customer Insights</option>
+                        </select>
+                    </div>
+                    <button id="generateReport" class="generate-btn" style="padding:8px 16px;background:linear-gradient(135deg,#393e6e 0%,#4c51bf 100%);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:500;margin-top:auto;">Generate Report</button>
+                </div>
+                
+                <hr class="section-divider" style="border:0;border-top:1.5px solid #e5e7eb;margin:2.5rem 0 2rem 0;" />
+                
+                <div class="report-summary">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="font-size:2rem;">💰</div>
+                            <div class="stat-content">
+                                <h3>Total Sales</h3>
+                                <p class="stat-number" id="totalSales">৳45,250</p>
+                                <p class="stat-change positive">+15% from previous period</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon" style="font-size:2rem;">📦</div>
+                            <div class="stat-content">
+                                <h3>Orders</h3>
+                                <p class="stat-number" id="totalOrders">128</p>
+                                <p class="stat-change positive">+8% from previous period</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon" style="font-size:2rem;">👤</div>
+                            <div class="stat-content">
+                                <h3>New Customers</h3>
+                                <p class="stat-number" id="newCustomers">24</p>
+                                <p class="stat-change positive">+12% from previous period</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-top:1.5rem;">
+                        <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Sales Trend</h3>
+                        <div id="salesChart" style="height:300px;background:#f9fafb;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                            <p style="color:#6b7280;">Chart will be displayed here</p>
+                        </div>
+                    </div>
+                    
+                    <div class="report-tables" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+                        <div class="top-products" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;">
+                            <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Top Products</h3>
+                            <table style="width:100%;border-collapse:collapse;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Product</th>
+                                        <th style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Units Sold</th>
+                                        <th style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topProductsBody">
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Premium T-Shirt</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">42</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳12,600</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Designer Jeans</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">38</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳9,500</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Casual Shoes</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">35</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳8,750</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="top-categories" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;">
+                            <h3 style="margin-top:0;margin-bottom:1rem;color:#393e6e;">Top Categories</h3>
+                            <table style="width:100%;border-collapse:collapse;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Category</th>
+                                        <th style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Orders</th>
+                                        <th style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topCategoriesBody">
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Clothing</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">65</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳19,500</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Footwear</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">42</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳12,600</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0.5rem;border-bottom:1px solid #e5e7eb;">Accessories</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">21</td>
+                                        <td style="text-align:right;padding:0.5rem;border-bottom:1px solid #e5e7eb;">৳6,300</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script src="js/reports/reports.js"></script>
+</body>
+</html>

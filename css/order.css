@@ -1,0 +1,115 @@
+/* Order Management Responsive Styles */
+
+.order-table-container {
+    max-width: 100%;
+    width: 100%;
+    overflow-x: visible;
+}
+
+.order-table {
+    min-width: auto;
+    width: 100%;
+}
+
+/* Make table responsive */
+@media (max-width: 1200px) {
+    .order-table {
+        display: block;
+    }
+    
+    .order-table thead,
+    .order-table tbody,
+    .order-table tr,
+    .order-table th,
+    .order-table td {
+        display: block;
+    }
+    
+    .order-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .order-table tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    }
+    
+    .order-table td {
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .order-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .order-table td:before {
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+        transform: translateY(-50%);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: 700;
+        color: #232946;
+        content: attr(data-label);
+        text-align: left;
+    }
+}
+
+/* Status badge styles are now inline in the JS file */
+
+/* Action buttons */
+.order-table .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+@media (max-width: 1200px) {
+    .order-table .action-buttons {
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-table button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Added styles for wider table - matching users.html */
+.main-content > div {
+    max-width: 100% !important;
+    padding: 0 1rem;
+}
+
+/* Adjust column widths for better display */
+.order-table th:nth-child(1) { width: 15%; } /* Order # */
+.order-table th:nth-child(2) { width: 15%; } /* Customer */
+.order-table th:nth-child(3) { width: 15%; } /* Date */
+.order-table th:nth-child(4) { width: 15%; } /* Status */
+.order-table th:nth-child(5) { width: 15%; } /* Total */
+.order-table th:nth-child(6) { width: 25%; } /* Actions */
+
+/* Improve text display in cells */
+.order-table td {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.9rem;
+}
+
+/* Ensure action buttons are visible */
+.order-table td:last-child {
+    white-space: nowrap;
+}

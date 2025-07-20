@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Authentication Container -->
+    <div id="authContainer" class="auth-container">
+        <!-- Login form will be inserted here by JavaScript -->
+    </div>
+
+    <!-- Admin Content (hidden until authenticated) -->
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="product-header">
+                <h1>Product Management</h1>
+                <p>Manage your product listings here. Add, edit, or delete products as needed.</p>
+            </div>
+            
+            <div class="product-form-container">
+                <form id="productForm" class="product-form">
+                    <input type="hidden" id="productId" />
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productTitle">Product Title *:</label>
+                            <input type="text" id="productTitle" required placeholder="Enter product title" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSKU">SKU *:</label>
+                            <input type="text" id="productSKU" required placeholder="Enter SKU" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productDescription">Description *:</label>
+                        <textarea id="productDescription" required placeholder="Enter product description" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">Category *:</label>
+                            <select id="productCategory" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productBrand">Brand:</label>
+                            <select id="productBrand">
+                                <option value="">Select a brand (optional)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Regular Price *:</label>
+                            <input type="number" id="productPrice" required min="0" step="0.01" placeholder="0.00" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSalePrice">Sale Price (optional):</label>
+                            <input type="number" id="productSalePrice" min="0" step="0.01" placeholder="0.00" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productStock">Stock *:</label>
+                            <input type="number" id="productStock" required min="0" placeholder="0" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productColor">Color (optional):</label>
+                            <input type="text" id="productColor" placeholder="e.g. Blue, Red, Green" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productSize">Size (optional):</label>
+                            <input type="text" id="productSize" placeholder="e.g. M, L, XL" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" style="flex:1;min-width:180px;max-width:220px;">
+                            <label for="productFeatured">Featured Product:</label>
+                            <input type="checkbox" id="productFeatured" />
+                            <label for="productActive" style="margin-top:1.2em;">Active:</label>
+                            <input type="checkbox" id="productActive" checked />
+                        </div>
+                        <div class="form-group" style="flex:2;min-width:220px;max-width:340px;align-self:flex-start;">
+                            <label for="productThumbnail">Product Images:</label>
+                            <div class="image-upload-container" style="min-width:200px;max-width:320px;padding:0.7rem 0.7rem;">
+                                <input type="file" id="productImages" accept="image/*" multiple style="display: none;" />
+                                <div class="image-preview-grid" id="imagePreviewGrid">
+                                    <div class="upload-placeholder">
+                                        <span class="upload-icon">📷</span>
+                                        <p>Click to upload images</p>
+                                        <small>JPG, PNG, GIF up to 2MB each</small>
+                                    </div>
+                                </div>
+                                <button type="button" id="uploadImagesBtn" class="btn-upload">Choose Images</button>
+                                <input type="hidden" id="productImagesUrls" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="productSubmitBtn" class="btn-primary">Add Product</button>
+                        <button type="button" id="productCancelBtn" class="btn-secondary" style="display:none;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <hr style="border:0;border-top:1.5px solid #e5e7eb;margin:2.5rem 0 2rem 0;" />
+            <div class="product-table-container">
+                <div class="table-header">
+                    <h3 style="font-size:1.3rem;color:#393e6e;font-weight:700;letter-spacing:0.01em;margin-bottom:0.2em;">All Products</h3>
+                    <div class="table-filters">
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                        </select>
+                        <input type="text" id="searchProducts" placeholder="Search products..." />
+                    </div>
+                </div>
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <tr>
+                            <td colspan="7" class="loading">Loading products...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyASIyl9QqMu26tgr_BK6vUrV7uGtmrMc5E",
+        authDomain: "ecommerceapp-c9ea3.firebaseapp.com",
+        projectId: "ecommerceapp-c9ea3",
+        storageBucket: "ecommerceapp-c9ea3.firebasestorage.app",
+        messagingSenderId: "390658496608",
+        appId: "1:390658496608:web:6fe75f0d30de75f32f0b05",
+        measurementId: "G-MMBCSZ3Q4K"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+    </script>
+    <script src="js/auth/firebase-auth.js"></script>
+    <script src="js/product/product.js"></script>
+</body>
+</html> 

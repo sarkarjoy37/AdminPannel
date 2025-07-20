@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/order.css">
+    <style>
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .status-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .status-filter {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            transition: all 0.2s;
+        }
+        .status-filter.active {
+            color: white;
+            font-weight: 500;
+        }
+        .search-container {
+            display: flex;
+            margin-left: auto;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+        @media (max-width: 768px) {
+            .search-container {
+                margin-left: 0;
+                width: 100%;
+            }
+            .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="adminContent" class="admin-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/PriyoRong Logo Vertical for Products.png" alt="Logo" style="width:130px;height:60px;display:block;border-radius:8px;object-fit:cover;" />
+                <span class="sidebar-title">Admin Panel</span>
+                <div class="user-email" id="userEmail" style="font-size:0.70rem;line-height:1.1;letter-spacing:0.01em;">adminpriyorong@ecommerce.com</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="orders.html" class="active">Orders</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div class="order-header" style="background:linear-gradient(90deg,#393e6e 0%,#ffb347 100%);border-radius:12px;padding:1.5rem 2rem 1.2rem 2rem;color:#fff;box-shadow:0 2px 12px rgba(44,62,80,0.08);margin-bottom:2rem;">
+                <h1 style="color:#fefefe;margin-bottom:0.5rem;font-size:2rem;letter-spacing:0.01em;font-weight:700;">Order Management</h1>
+                <p style="color:#ffffff;font-size:1.04rem;font-weight:500;">Manage and process customer orders in real time.</p>
+            </div>
+            
+            <div style="max-width:1000px;margin:0 auto;">
+                <div class="table-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:1rem;">
+                    <h3 style="font-size:1.3rem;color:#393e6e;font-weight:700;letter-spacing:0.01em;margin-bottom:0.2em;">All Orders</h3>
+                </div>
+            
+                <div class="filters-container">
+                    <div class="status-filters" id="statusFilters">
+                        <button class="status-filter active" data-status="all">All</button>
+                        <button class="status-filter" data-status="pending" style="border-color: #FFA500;">Pending</button>
+                        <button class="status-filter" data-status="processing" style="border-color: #2196F3;">Processing</button>
+                        <button class="status-filter" data-status="shipped" style="border-color: #9C27B0;">Shipped</button>
+                        <button class="status-filter" data-status="delivered" style="border-color: #4CAF50;">Delivered</button>
+                        <button class="status-filter" data-status="cancelled" style="border-color: #F44336;">Cancelled</button>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="orderSearch" class="search-input" placeholder="Search by last 6 digits..." />
+                    </div>
+                </div>
+                
+                <hr class="section-divider" style="border:0;border-top:1.5px solid #e5e7eb;margin:2.5rem 0 2rem 0;" />
+            
+                <div class="order-table-container">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                            <th>Order #</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <tr><td colspan="6" class="loading" data-label="Status">Loading orders...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal" style="display:none;">
+        <div class="modal-content" id="orderModalContent">
+            <!-- Order details will be injected here -->
+        </div>
+    </div>
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <!-- Initialize Firebase BEFORE any other Firebase JS -->
+    <script>
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyASIyl9QqMu26tgr_BK6vUrV7uGtmrMc5E",
+        authDomain: "ecommerceapp-c9ea3.firebaseapp.com",
+        projectId: "ecommerceapp-c9ea3",
+        storageBucket: "ecommerceapp-c9ea3.firebasestorage.app",
+        messagingSenderId: "390658496608",
+        appId: "1:390658496608:web:6fe75f0d30de75f32f0b05",
+        measurementId: "G-MMBCSZ3Q4K"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="js/auth/firebase-auth.js"></script>
+    <script src="js/order/order.js"></script>
+</body>
+</html>
