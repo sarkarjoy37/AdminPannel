@@ -4,7 +4,6 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .auth-container {
@@ -18,7 +17,6 @@ html, body {
     background-size: cover;
     padding: 2rem 2rem 1rem 2rem;
     position: relative;
-    overflow: hidden;
 }
 
 .auth-container::before {
